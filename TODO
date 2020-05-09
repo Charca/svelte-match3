@@ -1,0 +1,23 @@
+[x] Keep Board state and Svelte component state in sync (bind them somehow)
+[x] Initial board state should contain no matches
+[x] Should only allow swapping adjacent tiles
+[x] Should only allow swapping tiles that will generate a match
+[x] Should resolve all matches after a swap
+[x] All matched tiles should dissapear
+[x] Tiles should drop to fill the empty spaces
+[x] Board should be filled with new tiles, and the board should be resolved
+[x] Repeat until there are no matches
+[] Make sure I handle the scenario where there are no more possible moves (probably should be game over)
+[] Better unique ID (probably keep track of the last ID when generating a new one)
+[] Should block the UI if the board is resolving
+
+## Scoring
+[]
+
+
+## For later
+Evaluate performance: don't want to have laggy animations, so check if I need to use a web worker
+
+## NOTES
+- To resolve the board after removing matches, navigate each column from bottom to top and replace each
+  empty space with the nearest tile above or with a new one if there aren't any available.
