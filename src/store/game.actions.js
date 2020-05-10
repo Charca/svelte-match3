@@ -3,6 +3,7 @@ import {
   getMatches,
   getResolvedBoard,
   getClearedBoard,
+  getBoardScore,
 } from './game.utils'
 
 export const init = (rows, columns) => (state) => {
@@ -10,6 +11,7 @@ export const init = (rows, columns) => (state) => {
     rows,
     columns,
     board: generateRandomBoard(rows, columns),
+    score: 0,
   }
 }
 
@@ -42,6 +44,16 @@ export const resolveBoard = () => (state) => {
   return {
     ...state,
     board: resolvedBoard,
+  }
+}
+
+export const scoreBoard = () => (state) => {
+  const { board, rows, columns, score } = state
+  const newScore = getBoardScore(board, rows, columns) + score
+
+  return {
+    ...state,
+    score: newScore,
   }
 }
 

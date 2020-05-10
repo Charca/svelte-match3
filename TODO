@@ -7,13 +7,19 @@
 [x] Tiles should drop to fill the empty spaces
 [x] Board should be filled with new tiles, and the board should be resolved
 [x] Repeat until there are no matches
+[x] Better unique ID (probably keep track of the last ID when generating a new one)
 [] Make sure I handle the scenario where there are no more possible moves (probably should be game over)
-[] Better unique ID (probably keep track of the last ID when generating a new one)
 [] Should block the UI if the board is resolving
+[] Start new Game UI
 
 ## Scoring
 []
 
+## Advanced features
+[] Generate and resolve "special" tiles (bombs, clear row/col, etc)
+[] Add drag and drop / swipping support
+[] Responsiveness
+[] Sound effects
 
 ## For later
 Evaluate performance: don't want to have laggy animations, so check if I need to use a web worker

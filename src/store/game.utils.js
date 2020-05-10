@@ -68,6 +68,15 @@ export function areTilesAdjacent(p, q, columns) {
   )
 }
 
+export function getBoardScore(board, rows, columns) {
+  const matches = getMatches(board, rows, columns)
+  let score = 0
+
+  matches.forEach((match) => (score += match.indices.length * 50))
+
+  return score
+}
+
 export function getClearedBoard(board, rows, columns) {
   const matches = getMatches(board, rows, columns)
   const clearedBoard = [...board]

@@ -4,6 +4,7 @@ import {
   swapTiles,
   resolveBoard,
   clearBoard,
+  scoreBoard,
   checkMatchesAndResolve,
 } from './game.actions'
 
@@ -17,6 +18,7 @@ function createStore() {
     resolveBoard: function doResolve() {
       update(clearBoard())
       setTimeout(() => {
+        update(scoreBoard())
         update(resolveBoard())
         setTimeout(() => {
           update(checkMatchesAndResolve(doResolve))
