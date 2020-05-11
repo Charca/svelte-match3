@@ -6,35 +6,55 @@
 
 <style>
   .tile {
-    width: 50px;
-    height: 50px;
-    border-radius: 4px;
+    width: 60px;
+    height: 60px;
+    background-size: 60px;
     cursor: pointer;
   }
 
   .tile-1 {
-    background: red;
+    background-image: url(/assets/tiles/red.png);
+  }
+
+  .tile-1.is-selected {
+    background-image: url(/assets/tiles/red-active.png);
   }
 
   .tile-2 {
-    background: gold;
+    background-image: url(/assets/tiles/orange.png);
+  }
+
+  .tile-2.is-selected {
+    background-image: url(/assets/tiles/orange-active.png);
   }
 
   .tile-3 {
-    background: green;
+    background-image: url(/assets/tiles/green.png);
+  }
+
+  .tile-3.is-selected {
+    background-image: url(/assets/tiles/green-active.png);
   }
 
   .tile-4 {
-    background: blueviolet;
+    background-image: url(/assets/tiles/purple.png);
+  }
+
+  .tile-4.is-selected {
+    background-image: url(/assets/tiles/purple-active.png);
   }
 
   .tile-5 {
-    background: blue;
+    background-image: url(/assets/tiles/blue.png);
   }
 
-  .is-selected {
-    box-shadow: 0 0 1px 3px lightblue;
+  .tile-5.is-selected {
+    background-image: url(/assets/tiles/blue-active.png);
   }
+
+  /* .is-selected {
+    box-shadow: 0 0 1px 3px lightblue;
+  } */
 </style>
 
 <div
