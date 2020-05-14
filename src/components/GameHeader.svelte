@@ -11,7 +11,6 @@
   }
 
   .group {
-    background: red;
     color: white;
     padding: 10px 20px;
     border-radius: 20px;
@@ -36,7 +35,7 @@
 <header>
   <div class="group">
     <div class="group-label">Moves</div>
-    <div class="group-value">68</div>
+    <div class="group-value">{$game.moves}</div>
   </div>
   <div class="group score">
     <div class="group-label">Score</div>

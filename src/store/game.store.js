@@ -1,7 +1,9 @@
 import { writable } from 'svelte/store'
 import {
   init,
+  reset,
   swapTiles,
+  decrementMoves,
   resolveBoard,
   clearBoard,
   scoreBoard,
@@ -13,15 +15,18 @@ function createStore() {
 
   return {
     subscribe,
-    init: (rows, columns) => update(init(rows, columns)),
+    update,
+    init: (rows, columns, moves) => update(init(rows, columns, moves)),
+    reset: () => update(reset()),
     swapTiles: (p, q) => update(swapTiles(p, q)),
-    resolveBoard: function doResolve() {
+    decrementMoves: () => update(decrementMoves()),
+    resolveBoard: function doResolve(onFinish) {
       update(clearBoard())
       setTimeout(() => {
         update(scoreBoard())
         update(resolveBoard())
         setTimeout(() => {
-          update(checkMatchesAndResolve(doResolve))
+          update(checkMatchesAndResolve(doResolve, onFinish))
         }, 350)
       }, 200)
     },

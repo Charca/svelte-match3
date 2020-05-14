@@ -1,4 +1,5 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { flip } from "svelte/animate";
   import { quintOut } from "svelte/easing";
   import Tile from "./Tile.svelte";
@@ -7,6 +8,7 @@
 
   const TILE_SIZE = 60;
   const BOARD_PADDING = 10;
+  const dispatch = createEventDispatcher();
 
   $: board = $game.board;
   $: rows = $game.rows;
@@ -47,7 +49,14 @@
       if (matches.length === 0) {
         game.swapTiles(selectedTile, i);
       } else {
-        game.resolveBoard();
+        game.decrementMoves();
+        game.resolveBoard(() => {
+          if ($game.moves === 0) {
+            dispatch("game-over", {
+              score: $game.score
+            });
+          }
+        });
       }
 
       selectedTile = null;
@@ -86,7 +95,6 @@
 </style>
 
 <main>
-
   <div class="board" style={boardStyle}>
     {#each cells as cell}
       <div class="cell" style={getCellStyle(cell)} />

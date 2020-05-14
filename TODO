@@ -2,14 +2,14 @@
 
 # v0 - First version that I'll let someone else play (Patri, Seba, Diego, etc)
 
-[] Add UI for Scoring and Moves
-[] Add Button to Reset the Game
+[x] Add UI for Scoring and Moves
+[x] Add Button to Reset the Game
+[] Implement EOG. If you run out of moves, show game over with current score and save the best score in LS. Like https://koenig-media.raywenderlich.com/uploads/2017/01/GameOver-322x320.jpg
+[] Figure out potential matches and make sure I handle the scenario where there are no more possible moves (probably should be game over)
 [] Responsiveness - Needs to look good on every device (down to iPhone SE)
 [] Add drag and drop / swipping support
 [] Pre-load all assets. Images, fonts, sounds, etc.
 [] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
-[] Make sure I handle the scenario where there are no more possible moves (probably should be game over)
-[] Implement EOG. If you run out of moves, show game over with current score and save the best score in LS. Like https://koenig-media.raywenderlich.com/uploads/2017/01/GameOver-322x320.jpg
 
 ## Scoring
 [] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.
@@ -42,6 +42,9 @@
 [] Add tile separators (that's what the .cell elements are for)
 
 ==============================
+
+# Reading Material
+[] https://www.gamasutra.com/blogs/JonathanBailey/20150227/237544/Match_Game_Mechanics_An_exhaustive_survey.php
 
 # TODO
 [x] Keep Board state and Svelte component state in sync (bind them somehow)

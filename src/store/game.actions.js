@@ -6,11 +6,22 @@ import {
   getBoardScore,
 } from './game.utils'
 
-export const init = (rows, columns) => (state) => {
+export const init = (rows, columns, moves) => (state) => {
   return {
     rows,
     columns,
     board: generateRandomBoard(rows, columns),
+    startingMoves: moves,
+    moves,
+    score: 0,
+  }
+}
+
+export const reset = () => (state) => {
+  return {
+    ...state,
+    board: generateRandomBoard(state.rows, state.columns),
+    moves: state.startingMoves,
     score: 0,
   }
 }
@@ -24,6 +35,13 @@ export const swapTiles = (p, q) => (state) => {
   return {
     ...state,
     board,
+  }
+}
+
+export const decrementMoves = () => (state) => {
+  return {
+    ...state,
+    moves: state.moves - 1,
   }
 }
 
@@ -57,11 +75,13 @@ export const scoreBoard = () => (state) => {
   }
 }
 
-export const checkMatchesAndResolve = (resolveCb) => (state) => {
+export const checkMatchesAndResolve = (resolveCb, onFinish) => (state) => {
   const { board, rows, columns } = state
   const matches = getMatches(board, rows, columns)
   if (matches.length > 0) {
-    resolveCb()
+    resolveCb(onFinish)
+  } else {
+    onFinish()
   }
 
   return state
