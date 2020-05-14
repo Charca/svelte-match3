@@ -4,12 +4,13 @@
 
 [x] Add UI for Scoring and Moves
 [x] Add Button to Reset the Game
-[] Implement EOG. If you run out of moves, show game over with current score and save the best score in LS. Like https://koenig-media.raywenderlich.com/uploads/2017/01/GameOver-322x320.jpg
-[] Figure out potential matches and make sure I handle the scenario where there are no more possible moves (probably should be game over)
+[x] Implement EOG. If you run out of moves, show game over with current score and save the best score in LS. Like https://koenig-media.raywenderlich.com/uploads/2017/01/GameOver-322x320.jpg
+[x] Add drag and drop / swipping support for mobile
 [] Responsiveness - Needs to look good on every device (down to iPhone SE)
-[] Add drag and drop / swipping support
 [] Pre-load all assets. Images, fonts, sounds, etc.
 [] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
+[] Fix double swipe needed to reset on mobile
+[] Support swipping on desktop
 
 ## Scoring
 [] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.
@@ -22,6 +23,7 @@
 [] Background music
 [] Animate inital board state
 [] Figure out potential matches to make sure there's at least one in the initial board state
+[] Figure out potential matches and make sure I handle the scenario where there are no more possible moves (probably should be game over)
 [] Settings (to toggle music and sound on and off, maybe volume too)
 [] Stagger animation of dropping tiles so that they fall one at a time
 [] Generate and resolve "special" tiles (bombs, clear row/col, etc)

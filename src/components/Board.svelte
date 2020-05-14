@@ -30,24 +30,12 @@
     height: ${TILE_SIZE * rows + BOARD_PADDING * 2}px;
   `;
 
-  function handleTileClick(i) {
-    if (isTileSelected(i)) {
-      return (selectedTile = null);
-    }
-
-    if (selectedTile === null) {
-      return (selectedTile = i);
-    }
-
-    if (!areTilesAdjacent(selectedTile, i, columns)) {
-      return (selectedTile = null);
-    }
-
-    game.swapTiles(selectedTile, i);
+  function swapTiles(p, q) {
+    game.swapTiles(p, q);
     setTimeout(() => {
       const matches = getMatches(board, rows, columns);
       if (matches.length === 0) {
-        game.swapTiles(selectedTile, i);
+        game.swapTiles(p, q);
       } else {
         game.decrementMoves();
         game.resolveBoard(() => {
@@ -61,6 +49,54 @@
 
       selectedTile = null;
     }, 250 - 50);
+  }
+
+  function handleTileClick(i) {
+    if (isTileSelected(i)) {
+      return (selectedTile = null);
+    }
+
+    if (selectedTile === null) {
+      return (selectedTile = i);
+    }
+
+    if (!areTilesAdjacent(selectedTile, i, columns)) {
+      return (selectedTile = null);
+    }
+
+    swapTiles(selectedTile, i);
+  }
+
+  function handleSwipe(event) {
+    const { direction, index } = event.detail;
+    switch (direction) {
+      case "left":
+        // can't swipe left from first column
+        if (index % columns === 0) {
+          return;
+        }
+        return swapTiles(index, index - 1);
+      case "right":
+        // can't swipe right from last column
+        if (index % columns === columns - 1) {
+          return;
+        }
+        return swapTiles(index, index + 1);
+      case "up":
+        // can't swipe up from first row
+        if (index < columns) {
+          return;
+        }
+        return swapTiles(index, index - columns);
+      case "down":
+        // can't swipe down from last row
+        if (index + columns >= board.length) {
+          return;
+        }
+        return swapTiles(index, index + columns);
+      default:
+        return;
+    }
   }
 
   $: console.log($game);
@@ -107,7 +143,9 @@
         {#if tile.type !== null}
           <Tile
             type={tile.type}
+            index={i}
             on:click={() => handleTileClick(i)}
+            on:swipe={handleSwipe}
             selected={isTileSelected(i)} />
         {/if}
       </span>

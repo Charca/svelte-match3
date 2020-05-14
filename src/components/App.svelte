@@ -8,6 +8,7 @@
     background-position-y: -1200px;
     padding: 40px;
     height: 100%;
+    overflow: hidden;
   }
 </style>
 

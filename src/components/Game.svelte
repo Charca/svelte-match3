@@ -5,8 +5,8 @@
   import GameOverModal from "./GameOverModal.svelte";
   import game from "../store/game.store";
 
-  const rows = 8;
-  const columns = 8;
+  const rows = 7;
+  const columns = 5;
   const moves = 20;
 
   game.init(rows, columns, moves);

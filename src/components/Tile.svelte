@@ -1,7 +1,59 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { fly, scale } from "svelte/transition";
   export let type;
+  export let index;
   export let selected = false;
+  const dispatch = createEventDispatcher();
+
+  let isSwiping = false;
+  let xDown;
+  let yDown;
+  let xDiff;
+  let yDiff;
+
+  const SWIPE_THRESHOLD = 50;
+
+  function handleTouchStart(event) {
+    isSwiping = true;
+    xDown = event.touches[0].clientX;
+    yDown = event.touches[0].clientY;
+    xDiff = 0;
+    yDiff = 0;
+  }
+
+  function handleTouchMove(event) {
+    if (!isSwiping) return;
+    const xUp = event.touches[0].clientX;
+    const yUp = event.touches[0].clientY;
+    let direction;
+
+    xDiff = xDown - xUp;
+    yDiff = yDown - yUp;
+
+    if (xDiff < -SWIPE_THRESHOLD) {
+      direction = "right";
+    } else if (xDiff > SWIPE_THRESHOLD) {
+      direction = "left";
+    } else if (yDiff < -SWIPE_THRESHOLD) {
+      direction = "down";
+    } else if (yDiff > SWIPE_THRESHOLD) {
+      direction = "up";
+    }
+
+    if (direction) {
+      dispatch("swipe", {
+        direction,
+        index
+      });
+
+      isSwiping = false;
+    }
+  }
+
+  function handleTouchEnd() {
+    isSwiping = false;
+  }
 </script>
 
 <style>
@@ -59,9 +111,12 @@
 
 <div
   class="tile tile-{type}"
-  class:is-selected={selected}
-  on:click
+  class:is-selected={selected || isSwiping}
   out:scale={{ duration: 200 }}
-  in:fly={{ duration: 250, delay: 100, y: -100, opacity: 0 }}>
+  in:fly={{ duration: 250, delay: 100, y: -100, opacity: 0 }}
+  on:touchstart={handleTouchStart}
+  on:touchmove={handleTouchMove}
+  on:touchend={handleTouchEnd}
+  on:click>
   <slot />
 </div>
