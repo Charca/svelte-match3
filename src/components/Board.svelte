@@ -1,14 +1,46 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import { flip } from "svelte/animate";
   import { quintOut } from "svelte/easing";
   import Tile from "./Tile.svelte";
   import game from "../store/game.store";
   import { areTilesAdjacent, getMatches } from "../store/game.utils";
 
-  const TILE_SIZE = 60;
   const BOARD_PADDING = 10;
   const dispatch = createEventDispatcher();
+
+  let docWidth = document.body.clientWidth;
+  let tileSize = getTileSize($game.columns);
+
+  function getTileSize(columns) {
+    docWidth = document.body.clientWidth;
+    let minWdth = BOARD_PADDING * 2 + 40 * 2 + columns * 60;
+    if (docWidth >= minWdth) {
+      return 60;
+    }
+
+    minWdth = BOARD_PADDING * 2 + 40 * 2 + columns * 50;
+    if (docWidth >= minWdth) {
+      return 50;
+    }
+
+    minWdth = BOARD_PADDING * 2 + 40 * 2 + columns * 40;
+    if (docWidth >= minWdth) {
+      return 40;
+    }
+
+    minWdth = BOARD_PADDING * 2 + 40 * 2 + columns * 30;
+    if (docWidth >= minWdth) {
+      return 30;
+    }
+
+    minWdth = BOARD_PADDING * 2 + 40 * 2 + columns * 20;
+    if (docWidth >= minWdth) {
+      return 20;
+    }
+
+    return 10;
+  }
 
   $: board = $game.board;
   $: rows = $game.rows;
@@ -21,13 +53,14 @@
     const col = i % columns;
 
     return `
-      top: ${TILE_SIZE * row + BOARD_PADDING}px;
-      left: ${TILE_SIZE * col + BOARD_PADDING}px;
+      top: ${tileSize * row + BOARD_PADDING}px;
+      left: ${tileSize * col + BOARD_PADDING}px;
     `;
   };
   $: boardStyle = `
-    width: ${TILE_SIZE * columns + BOARD_PADDING * 2}px;
-    height: ${TILE_SIZE * rows + BOARD_PADDING * 2}px;
+    width: ${tileSize * columns + BOARD_PADDING * 2}px;
+    height: ${tileSize * rows + BOARD_PADDING * 2}px;
+    --tile-size: ${tileSize}px;
   `;
 
   function swapTiles(p, q) {
@@ -99,6 +132,17 @@
     }
   }
 
+  onMount(() => {
+    window.addEventListener("resize", () => {
+      requestAnimationFrame(() => {
+        const newTileSize = getTileSize($game.columns);
+        if (newTileSize !== tileSize) {
+          tileSize = newTileSize;
+        }
+      });
+    });
+  });
+
   $: console.log($game);
 </script>
 
@@ -119,14 +163,14 @@
 
   .cell {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: var(--tile-size);
+    height: var(--tile-size);
   }
 
   .tile-wrapper {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: var(--tile-size);
+    height: var(--tile-size);
   }
 </style>
 
@@ -143,6 +187,7 @@
         {#if tile.type !== null}
           <Tile
             type={tile.type}
+            size={tileSize}
             index={i}
             on:click={() => handleTileClick(i)}
             on:swipe={handleSwipe}

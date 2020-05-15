@@ -5,8 +5,8 @@
   import GameOverModal from "./GameOverModal.svelte";
   import game from "../store/game.store";
 
-  const rows = 7;
-  const columns = 5;
+  const rows = 9;
+  const columns = 7;
   const moves = 20;
 
   game.init(rows, columns, moves);
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 500px;
+    max-width: 1200px;
     max-height: 1000px;
     margin: 0 auto;
   }

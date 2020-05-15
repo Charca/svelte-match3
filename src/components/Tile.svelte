@@ -3,19 +3,19 @@
   import { fly, scale } from "svelte/transition";
   export let type;
   export let index;
+  export let size;
   export let selected = false;
   const dispatch = createEventDispatcher();
   const dragGhost = new Image(0, 0);
   dragGhost.src =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
+  let SWIPE_THRESHOLD = size - 10;
   let isSwiping = false;
   let xDown;
   let yDown;
   let xDiff;
   let yDiff;
-
-  const SWIPE_THRESHOLD = 50;
 
   function handleTouchStart(event) {
     isSwiping = true;
@@ -74,9 +74,9 @@
 
 <style>
   .tile {
-    width: 60px;
-    height: 60px;
-    background-size: 60px;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    background-size: var(--tile-size);
     cursor: pointer;
   }
 
@@ -126,6 +126,7 @@
 </style>
 
 <div
+  style="--tile-size: {size}px"
   class="tile tile-{type}"
   class:is-selected={selected || isSwiping}
   out:scale={{ duration: 200 }}
