@@ -24,6 +24,14 @@
   button:focus {
     outline: none;
   }
+
+  @media screen and (max-width: 768px) {
+    button {
+      font-size: 18px;
+      height: 50px;
+      padding: 8px 24px;
+    }
+  }
 </style>
 
 <button on:click>

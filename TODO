@@ -9,9 +9,9 @@
 [x] Responsiveness - Needs to look good on every device (down to iPhone SE)
 [x] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
 [x] Support swipping on desktop
-[] Calculate board-size based on initial screen size.
+[x] Calculate board-size based on initial screen size.
+[x] UI elements should also resize on really small screens.
 [] Lock to portrait mode.
-[] UI elements should also resize on really small screens.
 
 ## Scoring
 [x] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.

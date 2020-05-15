@@ -25,15 +25,34 @@
     font-size: 40px;
   }
 
+  .moves {
+    margin-right: 10px;
+  }
+
   .score {
     justify-self: end;
     min-width: 200px;
     text-align: right;
   }
+
+  @media screen and (max-width: 768px) {
+    .group {
+      padding: 6px 12px;
+      border-radius: 12px;
+    }
+
+    .group-value {
+      font-size: 30px;
+    }
+
+    .score {
+      min-width: 150px;
+    }
+  }
 </style>
 
 <header>
-  <div class="group">
+  <div class="group moves">
     <div class="group-label">Moves</div>
     <div class="group-value">{$game.moves}</div>
   </div>

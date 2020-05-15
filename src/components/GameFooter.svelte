@@ -7,6 +7,7 @@
   footer {
     display: flex;
     justify-content: flex-end;
+    height: 74px;
   }
 </style>
 

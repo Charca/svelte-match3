@@ -16,6 +16,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
+    padding: 24px;
     display: none;
     justify-content: center;
     align-items: center;

@@ -5,9 +5,28 @@
   import GameOverModal from "./GameOverModal.svelte";
   import game from "../store/game.store";
 
-  const rows = 9;
-  const columns = 7;
+  function getInitialBoardSize() {
+    const docWidth = document.body.clientWidth;
+    const docHeight = document.body.clientHeight;
+    let rows = 8;
+    let columns = 7;
+
+    if (docWidth >= 820) {
+      columns = 12;
+    } else if (docWidth >= 700) {
+      columns = 10;
+    } else if (docWidth >= 580) {
+      columns = 8;
+    }
+
+    return {
+      rows,
+      columns
+    };
+  }
+
   const moves = 20;
+  const { rows, columns } = getInitialBoardSize();
 
   game.init(rows, columns, moves);
 
