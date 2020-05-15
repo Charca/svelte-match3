@@ -10,7 +10,7 @@
 [] Pre-load all assets. Images, fonts, sounds, etc.
 [] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
 [] Fix double swipe needed to reset on mobile
-[] Support swipping on desktop
+[x] Support swipping on desktop
 
 ## Scoring
 [] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.

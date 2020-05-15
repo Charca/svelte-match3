@@ -5,6 +5,9 @@
   export let index;
   export let selected = false;
   const dispatch = createEventDispatcher();
+  const dragGhost = new Image(0, 0);
+  dragGhost.src =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
   let isSwiping = false;
   let xDown;
@@ -16,16 +19,16 @@
 
   function handleTouchStart(event) {
     isSwiping = true;
-    xDown = event.touches[0].clientX;
-    yDown = event.touches[0].clientY;
+    xDown = event.touches ? event.touches[0].clientX : event.clientX;
+    yDown = event.touches ? event.touches[0].clientY : event.clientY;
     xDiff = 0;
     yDiff = 0;
   }
 
   function handleTouchMove(event) {
     if (!isSwiping) return;
-    const xUp = event.touches[0].clientX;
-    const yUp = event.touches[0].clientY;
+    const xUp = event.touches ? event.touches[0].clientX : event.clientX;
+    const yUp = event.touches ? event.touches[0].clientY : event.clientY;
     let direction;
 
     xDiff = xDown - xUp;
@@ -53,6 +56,19 @@
 
   function handleTouchEnd() {
     isSwiping = false;
+  }
+
+  function handleDragStart(event) {
+    event.dataTransfer.setDragImage(dragGhost, 0, 0);
+    handleTouchStart(event);
+  }
+
+  function handleDrag(event) {
+    handleTouchMove(event);
+  }
+
+  function handleDragEnd() {
+    handleTouchEnd();
   }
 </script>
 
@@ -117,6 +133,10 @@
   on:touchstart={handleTouchStart}
   on:touchmove={handleTouchMove}
   on:touchend={handleTouchEnd}
+  on:dragstart={handleDragStart}
+  on:dragend={handleDragEnd}
+  on:drag={handleDrag}
+  draggable={true}
   on:click>
   <slot />
 </div>
