@@ -20,13 +20,14 @@ function createStore() {
     reset: () => update(reset()),
     swapTiles: (p, q) => update(swapTiles(p, q)),
     decrementMoves: () => update(decrementMoves()),
-    resolveBoard: function doResolve(onFinish) {
+    resolveBoard: function doResolve(onMatch, onFinish) {
       update(clearBoard())
       setTimeout(() => {
         update(scoreBoard())
         update(resolveBoard())
+        onMatch()
         setTimeout(() => {
-          update(checkMatchesAndResolve(doResolve, onFinish))
+          update(checkMatchesAndResolve(doResolve, onMatch, onFinish))
         }, 350)
       }, 200)
     },

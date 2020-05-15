@@ -75,11 +75,13 @@ export const scoreBoard = () => (state) => {
   }
 }
 
-export const checkMatchesAndResolve = (resolveCb, onFinish) => (state) => {
+export const checkMatchesAndResolve = (resolveCb, onMatch, onFinish) => (
+  state
+) => {
   const { board, rows, columns } = state
   const matches = getMatches(board, rows, columns)
   if (matches.length > 0) {
-    resolveCb(onFinish)
+    resolveCb(onMatch, onFinish)
   } else {
     onFinish()
   }

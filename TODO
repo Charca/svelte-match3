@@ -6,10 +6,11 @@
 [x] Add Button to Reset the Game
 [x] Implement EOG. If you run out of moves, show game over with current score and save the best score in LS. Like https://koenig-media.raywenderlich.com/uploads/2017/01/GameOver-322x320.jpg
 [x] Add drag and drop / swipping support for mobile
-[] Responsiveness - Needs to look good on every device (down to iPhone SE)
+[x] Responsiveness - Needs to look good on every device (down to iPhone SE)
+[x] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
+[] Fix double swipe needed to reset on mobile (Chrome and Safari)
+[] Better responsiveness. Should look fine on iPhone SE and on landscape mobile. Also maybe calculate board-size based on initial screen size.
 [] Pre-load all assets. Images, fonts, sounds, etc.
-[] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
-[] Fix double swipe needed to reset on mobile
 [x] Support swipping on desktop
 
 ## Scoring
@@ -21,6 +22,7 @@
 # v1 - First version that I'll share with the world (Svelte Discort, Twitter, etc)
 
 [] Background music
+[] Better and more sound effects
 [] Animate inital board state
 [] Figure out potential matches to make sure there's at least one in the initial board state
 [] Figure out potential matches and make sure I handle the scenario where there are no more possible moves (probably should be game over)
