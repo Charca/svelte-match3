@@ -59,6 +59,31 @@
     max-height: 1000px;
     margin: 0 auto;
   }
+
+  .please-rotate {
+    color: white;
+    padding: 40px 20px;
+    border-radius: 20px;
+    background: -webkit-linear-gradient(top, #ff5db1 0%, #ef017c 100%);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 4px solid white;
+    width: 400px;
+    text-align: center;
+    font-size: 30px;
+    display: none;
+  }
+
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    main {
+      display: none;
+    }
+
+    .please-rotate {
+      display: block;
+    }
+  }
 </style>
 
 <main>
@@ -71,3 +96,5 @@
     visible={showModal}
     on:play-again={handlePlayAgain} />
 </main>
+
+<div class="please-rotate">Please rotate phone 😄</div>
