@@ -8,14 +8,14 @@
 [x] Add drag and drop / swipping support for mobile
 [x] Responsiveness - Needs to look good on every device (down to iPhone SE)
 [x] Sound effects. Ex: https://gameartpartners.com/downloads/interface-musical-sounds/
-[] Fix double swipe needed to reset on mobile (Chrome and Safari)
-[] Better responsiveness. Should look fine on iPhone SE and on landscape mobile. Also maybe calculate board-size based on initial screen size.
-[] Pre-load all assets. Images, fonts, sounds, etc.
 [x] Support swipping on desktop
+[] Calculate board-size based on initial screen size.
+[] Lock to portrait mode.
+[] UI elements should also resize on really small screens.
 
 ## Scoring
-[] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.
-[] The score should increment exponentially, i.e. 3 = 100 pts, 4 = 150 pts, 5 = 250 pts, etc.
+[x] Figure out actual scoring. Chains should have a multiplier, matches in both row and column should also count for more.
+[x] The score should increment exponentially, i.e. 3 = 100 pts, 4 = 150 pts, 5 = 250 pts, etc.
 
 ==============================
 
@@ -36,6 +36,7 @@
 [] Evaluate performance: don't want to have laggy animations, so check if I need to use a web worker
 [] Support multiple levels with different objectives
 [] Screens/States: Start, Playing, Game Over
+[] Pre-load all assets. Images, fonts, sounds, etc.
 
 ## Scoring
 [] Animate adding the score to the total
@@ -44,6 +45,9 @@
 
 ## UI
 [] Add tile separators (that's what the .cell elements are for)
+
+## Bugs
+[] Fix double tap needed to reset on mobile after swipping (Chrome and Safari)
 
 ==============================
 

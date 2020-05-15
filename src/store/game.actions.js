@@ -65,9 +65,9 @@ export const resolveBoard = () => (state) => {
   }
 }
 
-export const scoreBoard = () => (state) => {
+export const scoreBoard = (chainMultiplier) => (state) => {
   const { board, rows, columns, score } = state
-  const newScore = getBoardScore(board, rows, columns) + score
+  const newScore = getBoardScore(board, rows, columns, chainMultiplier) + score
 
   return {
     ...state,
@@ -75,13 +75,13 @@ export const scoreBoard = () => (state) => {
   }
 }
 
-export const checkMatchesAndResolve = (resolveCb, onMatch, onFinish) => (
+export const checkMatchesAndResolve = (resolveCb, onMatch, onFinish, n) => (
   state
 ) => {
   const { board, rows, columns } = state
   const matches = getMatches(board, rows, columns)
   if (matches.length > 0) {
-    resolveCb(onMatch, onFinish)
+    resolveCb(onMatch, onFinish, n + 1)
   } else {
     onFinish()
   }

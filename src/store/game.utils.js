@@ -68,11 +68,16 @@ export function areTilesAdjacent(p, q, columns) {
   )
 }
 
-export function getBoardScore(board, rows, columns) {
+const BASE_SCORE = 60
+
+export function getBoardScore(board, rows, columns, chainMultiplier) {
   const matches = getMatches(board, rows, columns)
   let score = 0
 
-  matches.forEach((match) => (score += match.indices.length * 50))
+  matches.forEach((match) => {
+    const tileMultiplier = match.indices.length - 2
+    return (score += BASE_SCORE * tileMultiplier * chainMultiplier)
+  })
 
   return score
 }
