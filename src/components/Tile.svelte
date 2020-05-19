@@ -102,6 +102,19 @@
     background-position-y: calc(var(--tile-size) * -4);
   }
 
+  .tile.special-x {
+    background-position-x: calc(var(--tile-size) * -2);
+  }
+
+  .tile.special-y {
+    background-position-x: calc(var(--tile-size) * -3);
+  }
+
+  .tile.special-color-candy {
+    background-position-x: 0;
+    background-position-y: calc(var(--tile-size) * -6);
+  }
+
   .is-selected {
     background-position-x: calc(var(--tile-size) * -1);
   }

@@ -7,6 +7,7 @@ export function generateRandomTile() {
   return {
     id: lastTileID,
     type: Math.floor(Math.random() * 5) + 1,
+    special: false,
   }
 }
 
@@ -32,6 +33,10 @@ export function generateRandomBoard(rows, columns) {
     board = getResolvedBoard(board, rows, columns)
     matches = getMatches(board, rows, columns)
   }
+
+  // Remove any special tiles that might have been created
+  // when resolving the board for its initial state.
+  board.forEach((tile) => (tile.special = false))
 
   return board
 }
@@ -82,7 +87,7 @@ export function getBoardScore(board, rows, columns, chainMultiplier) {
   return score
 }
 
-export function getClearedBoard(board, rows, columns) {
+export function getClearedBoard(board, rows, columns, lastSwap = []) {
   const matches = getMatches(board, rows, columns)
   const clearedBoard = [...board]
 
@@ -91,8 +96,33 @@ export function getClearedBoard(board, rows, columns) {
   }
 
   matches.forEach((match) => {
+    const spawnTile = {}
+    if (match.length === 4) {
+      spawnTile.special = match.orientation
+      spawnTile.index =
+        match.indices.indexOf(lastSwap[0]) !== -1
+          ? lastSwap[0]
+          : match.indices.indexOf(lastSwap[1]) !== -1
+          ? lastSwap[1]
+          : match.indices[1]
+    }
+
+    if (match.length >= 5) {
+      spawnTile.special = 'color-candy'
+      spawnTile.index =
+        match.indices.indexOf(lastSwap[0]) !== -1
+          ? lastSwap[0]
+          : match.indices.indexOf(lastSwap[1]) !== -1
+          ? lastSwap[1]
+          : match.indices[2]
+    }
+
     match.indices.forEach((index) => {
-      clearedBoard[index].type = null
+      if (spawnTile && spawnTile.index === index) {
+        clearedBoard[index].special = spawnTile.special
+      } else {
+        clearedBoard[index].type = null
+      }
     })
   })
 
@@ -167,7 +197,7 @@ export function getHorizontalMatches(board, rows, columns, minMatch = 3) {
             end,
             indices: getIndices(start, end),
             length: matchLength,
-            orientation: 'horizontal',
+            orientation: 'x',
           })
         }
 
@@ -209,7 +239,7 @@ export function getVerticalMatches(board, rows, columns, minMatch = 3) {
             end,
             indices: getIndices(start, end, columns),
             length: matchLength,
-            orientation: 'vertical',
+            orientation: 'y',
           })
         }
 

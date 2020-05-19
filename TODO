@@ -2,13 +2,24 @@
 
 # v1 - First version that I'll share with the world (Svelte Discort, Twitter, etc)
 
-[] Generate and resolve "special" tiles (bombs, clear row/col)
+[x] Generate "special" tiles (candy, x and y bombs)
 [] Make it a PWA. Add service worker, cache assets, test that it can be installed and played offline.
 [] Figure out potential matches to make sure there's at least one in the initial board state
 [] Figure out potential matches and make sure I handle the scenario where there are no more possible moves (probably should be game over)
-[] Start screen
 [] Better gameplay and objective
 [] Prevent flash of unstyled/invisible content as much as possible
+[] Add png tilesheet as a webp fallback for Safari
+
+## Special tiles
+[] Resolve x and y bombs (with scoring)
+[] Resolve color candy matches (with scoring)
+[] Animate spawn of special tiles
+[] Animate clearing the board thanks to special tiles
+
+## Start screen
+[] Logo
+[] Big play Button
+[] Credits
 
 ## Scoring
 [] Animate adding the score to the total
@@ -23,10 +34,12 @@
 ## Nice to haves
 [] Animate inital board state
 [] Stagger animation of dropping tiles so that they fall one at a time
-[] More noticeable "selected" effect for tiles (maybe add target square around it)
+[] Better "destroy" animation for the tiles
+[] Generate bombs
+[x] More noticeable "selected" effect for tiles (maybe add target square around it)
 [] Support gaps in the grid. See example: https://www.raywenderlich.com/55-how-to-make-a-game-like-candy-crush-with-spritekit-and-swift-part-1
 [] Use potential matches to provide hints and also an AI that plays by itself. Use bounce animation for hints
-[] Add tile separators (that's what the .cell elements are for)
+[] Add tile separators (that's what the .cell elements were originally for)
 
 ==============================
 

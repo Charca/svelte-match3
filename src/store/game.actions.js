@@ -14,6 +14,7 @@ export const init = (rows, columns, moves) => (state) => {
     startingMoves: moves,
     moves,
     score: 0,
+    lastSwap: [],
   }
 }
 
@@ -23,6 +24,7 @@ export const reset = () => (state) => {
     board: generateRandomBoard(state.rows, state.columns),
     moves: state.startingMoves,
     score: 0,
+    lastSwap: [],
   }
 }
 
@@ -35,6 +37,7 @@ export const swapTiles = (p, q) => (state) => {
   return {
     ...state,
     board,
+    lastSwap: [p, q],
   }
 }
 
@@ -46,8 +49,8 @@ export const decrementMoves = () => (state) => {
 }
 
 export const clearBoard = () => (state) => {
-  const { board, rows, columns } = state
-  const clearedBoard = getClearedBoard(board, rows, columns)
+  const { board, rows, columns, lastSwap } = state
+  const clearedBoard = getClearedBoard(board, rows, columns, lastSwap)
 
   return {
     ...state,
