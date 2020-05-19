@@ -4,6 +4,7 @@
   export let type;
   export let index;
   export let size;
+  export let special;
   export let selected = false;
   const dispatch = createEventDispatcher();
   const dragGhost = new Image(0, 0);
@@ -76,58 +77,39 @@
   .tile {
     width: var(--tile-size);
     height: var(--tile-size);
-    background-size: var(--tile-size);
+    background-image: url(/assets/tilesheet.webp);
+    background-size: calc(var(--tile-size) * 5);
     cursor: pointer;
   }
 
   .tile-1 {
-    background-image: url(/assets/tiles/red.png);
-  }
-
-  .tile-1.is-selected {
-    background-image: url(/assets/tiles/red-active.png);
+    background-position-y: 0;
   }
 
   .tile-2 {
-    background-image: url(/assets/tiles/orange.png);
-  }
-
-  .tile-2.is-selected {
-    background-image: url(/assets/tiles/orange-active.png);
+    background-position-y: calc(var(--tile-size) * -1);
   }
 
   .tile-3 {
-    background-image: url(/assets/tiles/green.png);
-  }
-
-  .tile-3.is-selected {
-    background-image: url(/assets/tiles/green-active.png);
+    background-position-y: calc(var(--tile-size) * -2);
   }
 
   .tile-4 {
-    background-image: url(/assets/tiles/purple.png);
-  }
-
-  .tile-4.is-selected {
-    background-image: url(/assets/tiles/purple-active.png);
+    background-position-y: calc(var(--tile-size) * -3);
   }
 
   .tile-5 {
-    background-image: url(/assets/tiles/blue.png);
+    background-position-y: calc(var(--tile-size) * -4);
   }
 
-  .tile-5.is-selected {
-    background-image: url(/assets/tiles/blue-active.png);
+  .is-selected {
+    background-position-x: calc(var(--tile-size) * -1);
   }
-
-  /* .is-selected {
-    box-shadow: 0 0 1px 3px lightblue;
-  } */
 </style>
 
 <div
   style="--tile-size: {size}px"
-  class="tile tile-{type}"
+  class="tile tile-{type} special-{special}"
   class:is-selected={selected || isSwiping}
   out:scale={{ duration: 200 }}
   in:fly={{ duration: 250, delay: 100, y: -100, opacity: 0 }}

@@ -11,9 +11,7 @@
     let rows = 8;
     let columns = 7;
 
-    if (docWidth >= 820) {
-      columns = 12;
-    } else if (docWidth >= 700) {
+    if (docWidth >= 700) {
       columns = 10;
     } else if (docWidth >= 580) {
       columns = 8;

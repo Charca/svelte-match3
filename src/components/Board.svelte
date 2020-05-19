@@ -86,9 +86,8 @@
           }
         );
       }
-
-      selectedTile = null;
     }, 250 - 50);
+    selectedTile = null;
   }
 
   function handleTileClick(i) {
@@ -170,6 +169,12 @@
     position: absolute;
     width: var(--tile-size);
     height: var(--tile-size);
+    pointer-events: none;
+  }
+
+  .cell.is-selected {
+    background-image: url(/assets/target.svg);
+    animation: pulse 1.2s infinite;
   }
 
   .tile-wrapper {
@@ -177,13 +182,24 @@
     width: var(--tile-size);
     height: var(--tile-size);
   }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1.15);
+    }
+
+    50% {
+      transform: scale(1.3);
+    }
+
+    100% {
+      transform: scale(1.15);
+    }
+  }
 </style>
 
 <main>
   <div class="board" style={boardStyle}>
-    {#each cells as cell}
-      <div class="cell" style={getCellStyle(cell)} />
-    {/each}
     {#each board as tile, i (tile.id)}
       <span
         class="tile-wrapper"
@@ -192,6 +208,7 @@
         {#if tile.type !== null}
           <Tile
             type={tile.type}
+            special={tile.special}
             size={tileSize}
             index={i}
             on:click={() => handleTileClick(i)}
@@ -199,6 +216,12 @@
             selected={isTileSelected(i)} />
         {/if}
       </span>
+    {/each}
+    {#each cells as cell, i}
+      <div
+        class="cell"
+        class:is-selected={isTileSelected(i)}
+        style={getCellStyle(cell)} />
     {/each}
   </div>
 </main>
