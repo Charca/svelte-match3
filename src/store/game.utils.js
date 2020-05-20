@@ -98,7 +98,8 @@ export function getClearedBoard(board, rows, columns, lastSwap = []) {
   matches.forEach((match) => {
     const spawnTile = {}
     if (match.length === 4) {
-      spawnTile.special = match.orientation
+      const special = match.orientation === 'x' ? 'y' : 'x'
+      spawnTile.special = special
       spawnTile.index =
         match.indices.indexOf(lastSwap[0]) !== -1
           ? lastSwap[0]

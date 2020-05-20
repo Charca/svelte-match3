@@ -12,11 +12,18 @@
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
   let SWIPE_THRESHOLD = size - 10;
+  let NEW_ANIMATION_TIMEOUT = 1200;
   let isSwiping = false;
   let xDown;
   let yDown;
   let xDiff;
   let yDiff;
+  let isNew = false;
+
+  $: {
+    isNew = special !== false;
+    setTimeout(() => (isNew = false), NEW_ANIMATION_TIMEOUT);
+  }
 
   function handleTouchStart(event) {
     isSwiping = true;
@@ -80,6 +87,9 @@
     background-image: url(/assets/tilesheet.webp);
     background-size: calc(var(--tile-size) * 5);
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
 
   .tile-1 {
@@ -118,12 +128,59 @@
   .is-selected {
     background-position-x: calc(var(--tile-size) * -1);
   }
+
+  .is-new {
+    animation: grow 0.2s;
+  }
+
+  .new-pulse-animation {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: calc(50% - 5px);
+    top: calc(50% - 5px);
+    border-radius: 100%;
+    background: rgba(255, 255, 255, 1);
+    animation: pulse-white 1.2s;
+  }
+
+  @keyframes grow {
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pulse-white {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 60px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
 </style>
 
+{#if isNew}
+  <div class="new-pulse-animation" />
+{/if}
 <div
   style="--tile-size: {size}px"
   class="tile tile-{type} special-{special}"
   class:is-selected={selected || isSwiping}
+  class:is-new={isNew}
   out:scale={{ duration: 200 }}
   in:fly={{ duration: 250, delay: 100, y: -100, opacity: 0 }}
   on:touchstart={handleTouchStart}
