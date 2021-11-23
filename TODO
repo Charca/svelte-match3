@@ -10,13 +10,16 @@
 [] Prevent flash of unstyled/invisible content as much as possible
 [] Add png tilesheet as a webp fallback for Safari
 [] Adjust the layout to two columns
-[] Prevent matching a color candy with candies of its color (since it has a "hidden" color)
+[] BUG: Matches that generate a special tile are not resolving because they resolve after the board has been cleared, and the special tiles interrupt the matches of "null" tiles
+[] BUG: Firefox desktop always swipes left for some reason
 
 ## Special tiles
-[] Resolve x and y bombs (with scoring)
-[] Resolve color candy matches (with scoring)
+[x] Resolve x and y bombs (with scoring)
+[x] Resolve color candy matches (with scoring)
 [x] Animate spawn of special tiles
 [] Animate clearing the board thanks to special tiles
+[] Prevent matching a color candy with candies of its color (since it has a "hidden" color)
+[] Clearing rows and columns should trigger chains of other special tiles
 
 ## Start screen
 [] Logo

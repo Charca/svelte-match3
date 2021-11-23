@@ -158,7 +158,7 @@
   @keyframes pulse-white {
     0% {
       transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 0 0 rgba(255, 231, 12, 0.7);
     }
 
     70% {

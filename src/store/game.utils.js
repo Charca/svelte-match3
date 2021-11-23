@@ -76,12 +76,20 @@ export function areTilesAdjacent(p, q, columns) {
 const BASE_SCORE = 60
 
 export function getBoardScore(board, rows, columns, chainMultiplier) {
+  // When I get the matches for scoring at this point, the board has already
+  // been cleared. That means, that the matches that I'm getting are all matches of
+  // consecutive "null" tiles.
+  // That works out because when I clear a complete row or column because of a special
+  // tile, I'm basically scoring a full-length match. But if I ever want to do a more
+  // sophisticated scoring, I'd probably need to tag the tiles that caused the scoring
+  // and the ones that were cleared because of a special tile.
   const matches = getMatches(board, rows, columns)
   let score = 0
 
   matches.forEach((match) => {
     const tileMultiplier = match.indices.length - 2
-    return (score += BASE_SCORE * tileMultiplier * chainMultiplier)
+    const newScore = BASE_SCORE * tileMultiplier * chainMultiplier
+    return (score += newScore)
   })
 
   return score
@@ -89,7 +97,7 @@ export function getBoardScore(board, rows, columns, chainMultiplier) {
 
 export function getClearedBoard(board, rows, columns, lastSwap = []) {
   const matches = getMatches(board, rows, columns)
-  const clearedBoard = [...board]
+  let clearedBoard = [...board]
 
   if (matches.length === 0) {
     return board
@@ -97,6 +105,8 @@ export function getClearedBoard(board, rows, columns, lastSwap = []) {
 
   matches.forEach((match) => {
     const spawnTile = {}
+    const specialMatchedTiles = getSpecialTilesOnMatch(board, match)
+
     if (match.length === 4) {
       const special = match.orientation === 'x' ? 'y' : 'x'
       spawnTile.special = special
@@ -125,7 +135,50 @@ export function getClearedBoard(board, rows, columns, lastSwap = []) {
         clearedBoard[index].type = null
       }
     })
+
+    specialMatchedTiles.forEach((tile) => {
+      switch (tile.special) {
+        case 'x':
+          // clear row
+          clearedBoard = getRowClearedBoard(tile.index, clearedBoard, columns)
+          break
+        case 'y':
+          // clear column
+          clearedBoard = getColumnClearedBoard(
+            tile.index,
+            clearedBoard,
+            columns
+          )
+        default:
+          break
+      }
+    })
   })
+
+  return clearedBoard
+}
+
+function getRowClearedBoard(p, board, columns) {
+  const coords = getCoordinates(p, columns)
+  const clearedBoard = [...board]
+
+  // clear all tiles at row = y
+  for (let i = 0; i < columns; i += 1) {
+    const index = coords.y * columns + i
+    clearedBoard[index].type = null
+  }
+
+  return clearedBoard
+}
+
+function getColumnClearedBoard(p, board, columns) {
+  const coords = getCoordinates(p, columns)
+  const clearedBoard = [...board]
+
+  // clear all tiles at col = x
+  for (let i = coords.x; i < board.length; i += columns) {
+    clearedBoard[i].type = null
+  }
 
   return clearedBoard
 }
@@ -250,6 +303,15 @@ export function getVerticalMatches(board, rows, columns, minMatch = 3) {
   }
 
   return matches
+}
+
+export function getSpecialTilesOnMatch(board, match) {
+  return match.indices
+    .filter((index) => board[index].special !== false)
+    .map((index) => ({
+      index,
+      special: board[index].special,
+    }))
 }
 
 export function getIndices(start, end, step = 1) {
