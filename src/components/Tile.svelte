@@ -78,7 +78,7 @@
     width: var(--tile-size);
     height: var(--tile-size);
     background-image: url(/assets/tilesheet.webp);
-    background-size: calc(var(--tile-size) * 5);
+    background-size: calc(var(--tile-size) * 2);
     cursor: pointer;
   }
 
